@@ -32,7 +32,5 @@ The Goal of this project is to create an interpreter for Monty ByteCodes files.
    * Nop: The code does nothing.
    * Sub: Substracts the top element of the stack from the second top element.
 
-## Authors & Contact Information
-
-* Andres Reyes - email: 1565@holbertonschool.com - GitHub: https://github.com/andresvanegas19
-* Juan José Villegas - email: 1561@holbertonschool.com - GitHub: https://github.com/juanjo7890
+## Author
+* Braddonr
