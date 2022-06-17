@@ -1,87 +1,130 @@
-# monty
- monty is an interpreter of Monty ByteCodes files, which is a scripting language just like Python.
+# monty - Stacks, Queues - LIFO, FIFO 🥞  
+#### monty functions as a Monty byte code interpreter. Monty 0.98 is a scripting language that is first compiled into Monty byte codes (Just like Python). It relies on a unique stack, with specific instructions to manipulate it.  
+  
+  
+## SYNOPSIS  
+monty is a simple byte code interpreter in accordance with Holberton School standards and expectations. This project's purpose was to introduce students to working with the `stack` which is [**LIFO** (last in first out)]([https://en.wikipedia.org/wiki/Stack_(abstract_data_type)](https://en.wikipedia.org/wiki/Stack_(abstract_data_type))) and the `queue`, which is [**FIFO** (first in first out)]([https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics))).  
+  
+  
+  
+  
+  
+  
+## INSTALLATION AND USAGE  
+Please use GCC 4.8.4 compiler or later.  
+  
+```  
+$ git clone [repository link]  
+$ gcc -Wall -Werror -Wextra -pedantic *.c -o monty  
+$ ./monty file_name.m  
+```  
+  
+  
+  
+## SYNTAX OVERVIEW AND EXAMPLES  
+  
+  
+Below are some examples of using monty with bytecode files:  
+  
+```  
+vagrant@vagrant-ubuntu-trusty-64:~/0x19-stacks_queues_lifo_fifo$ cat -e bytecodes/00.m  
+push 1$  
+push 2$  
+push 3$  
+pall$  
+vagrant@vagrant-ubuntu-trusty-64:~/0x19-stacks_queues_lifo_fifo$ ./monty bytecodes/00.m  
+3  
+2  
+1  
+vagrant@vagrant-ubuntu-trusty-64:~/0x19-stacks_queues_lifo_fifo$  
+```  
+```  
+vagrant@vagrant-ubuntu-trusty-64:~/0x19-stacks_queues_lifo_fifo$ cat bytecodes/09.m  
+push 1  
+push 2  
+push 3  
+pall  
+swap  
+pall  
+vagrant@vagrant-ubuntu-trusty-64:~/0x19-stacks_queues_lifo_fifo$ ./monty bytecodes/09.m  
+3  
+2  
+1  
+2  
+3  
+1  
+vagrant@vagrant-ubuntu-trusty-64:~/0x19-stacks_queues_lifo_fifo$  
+```  
+## opcodes 
 
-# About the Monty language
-This is a language that contains specific instructions to manipulate data information (stacks or queues), where each instruction (called opcode) is sended per line. Files which contains Monty byte codes usually have the .m extension.
+Listed below are the opcodes to can be used in monty:  
+  
+opcode | Function  
+--------|---------------  
+push | Pushes an element to the stack  
+pall | Prints all the values on the stack, starting from the top of the stack  
+pint| prints the value at the top of the stack, followed by a new line  
+pop| Removes the top element of the stack  
+swap | Swaps the top two elements of the stack  
+ add | Adds the top two elements of the stack  
+ nop| Doesn’t do anything 
+  
+  
+  
+  
 
-# Example (file.m):
+## File Descriptions  
+  
+Listed below are the descriptions of the files in this repo:  
+  
+File | Description  
+--------|---------------  
+helperfuncs.c | Includes functions for string manipulation.  
+main.c| Contains parser and main monty interpreter.  
+free_list.c | Contains function to print doubly linked list    
+monty.c | Contains functions for opcodes 
+monty1.c | Contains functions for opcodes 
+monty.h | Contains function prototypes and data structures.  
+  
+  
+  
+  
+  
+  
+## Authors  
+  
+*Faizan Khan* :zap:  
+  
+  
+*Christian Williams* :musical_note:  
+  
+## Data Structures and Functions  Used
+  
+```  
+typedef struct stack_s
 
-$ cat file.m
-# Pushing element to the stack
-push 0
-push 1
-push 2
-# Printing all elements
-pall
-push 3
-push 4
-pop
-# Rotating the stack to the bottom
-rotr
-pall
-rotl
-# Setting FIFO
-queue
-push 5
-# Setting LIFO
-stack
-push 5
-$
-## Technologies
-Interpreter was written with C language
-C files are compiled using gcc 4.8.4
-C files are written according to the C90 standard
-Tested on Ubuntu 14.04 LTS
-Usage
-To compile all files:
+{
+int n;
+struct stack_s *prev;
+struct stack_s *next;
+} stack_t;
 
-$ gcc -Wall -Werror -Wextra -pedantic *.c -o monty
-$
-The synopsis of the interpreter is the following:
+typedef struct instruction_s
 
-$ ./monty [filename]
-$
-To run the interpreter:
+{
+char *opcode;
+void (*f)(stack_t **stack, unsigned int line_number);
+} instruction_t;
 
-$ ./monty file.m
-2
-1
-0
-0
-3
-2
-1
-$
-## Features
-### Opcodes
-monty executes the following opcodes:
+void add(stack_t **stack, unsigned int line_num);
+void swap(stack_t **stack, unsigned int line_num);
+void pop(stack_t **stack, unsigned int line_num);
+stack_t *push(stack_t **stack, unsigned int line_num, int n);
+void pall(stack_t **stack, unsigned int line_num);
+stack_t *push(stack_t **stack, unsigned int line_num, int n);
+void swap(stack_t **stack, unsigned int line_num);
+void free_dlistint(dlistint_t *head);
+int _strcmp(char *s1, char *s2);
 
-### Opcode	  Description
-push	Pushes an element to the stack
-pall	Prints all the values on the stack
-pint	Prints the value at the top of the stack
-pop	Removes the top element of the stack
-swap	Swaps the top two elements of the stack
-queue	Sets the format of the data to a queue (FIFO)
-stack	Sets the format of the data to a stack (LIFO)
-nop	Doesn't do anything
-add	Adds the top two elements of the stack
-sub	Subtracts the top element of the stack from the second top element of the stack
-mul	Multiplies the second top element of the stack with the top element of the stack
-div	Divides the second top element of the stack by the top element of the stack
-mod	Computes the rest of the division of the second top element of the stack by the top element of the stack
-pchar	Prints the char at the top of the stack
-pstr	Prints the string starting at the top of the stack
-rotl	Rotates the stack to the top
-rotr	Rotates the stack to the bottom
-Comments, indicated with #, are not executed by the interpreter.
 
-When a nonextistent opcode is passed, the interpreter prints an error message and stops:
-
-$ cat errorfile.m
-push 1
-pint
-pcx
-$ ./monty errorfile.m
-1
-L3: unknown instruction pcx
+```
