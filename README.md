@@ -93,10 +93,7 @@ monty.h | Contains function prototypes and data structures.
   
 ## Authors  
   
-*Faizan Khan* :zap:  
-  
-  
-*Christian Williams* :musical_note:  
+*Braddon Kipngeno :musical_note:  
   
 ## Data Structures and Functions  Used
   
